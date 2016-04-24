@@ -11,11 +11,16 @@ AMyActor::AMyActor()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Root = CreateDefaultSubobject<UBoxComponent>(TEXT("Root"));
-	
+	Root->bGenerateOverlapEvents = true;
+	Root->OnComponentBeginOverlap.AddDynamic(this, &AMyActor::TriggerEnter);
+	Root->SetRelativeScale3D(RootSize);
+
 	RootComponent = Root;
 
 	MyMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MyMesh"));
 	MyMesh->AttachTo(RootComponent);
+
+	SpeedScale = 0.0f;
 }
 
 // Called when the game starts or when spawned
@@ -32,8 +37,18 @@ void AMyActor::Tick( float DeltaTime )
 
 	FVector NewLocation = GetActorLocation();
 	float DeltaHeight = FMath::Sin(RuniningTime + DeltaTime);
-	NewLocation.Z += DeltaHeight;
+	if (bMovesYAxis)
+		NewLocation.Y += DeltaHeight * SpeedScale;
+	else
+		NewLocation.X += DeltaHeight * SpeedScale;
+	
 	RuniningTime += DeltaTime;
 	SetActorLocation(NewLocation);
 }
 
+void AMyActor::TriggerEnter(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OhtherBodyIndex, bool bFromSweep, const FHitResult& SweepRessult)
+{
+	// When player is hit by the rock, teleport them back to the start
+	OtherActor->SetActorLocation(PlayerStartingLocation);
+
+}

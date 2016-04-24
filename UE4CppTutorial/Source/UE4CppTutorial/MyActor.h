@@ -27,4 +27,17 @@ public:
 	UStaticMeshComponent* MyMesh;
 
 	float RuniningTime;
+	
+	UPROPERTY(EditAnywhere)
+	float SpeedScale;
+
+	FVector PlayerStartingLocation = FVector(10.0f, 0.0f, 0.0f);
+
+	FVector RootSize = FVector(1.5f, 1.5f, 1.5f);
+
+	UFUNCTION()
+	void TriggerEnter(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OhtherBodyIndex, bool bFromSweep, const FHitResult& SweepRessult);
+	
+	UPROPERTY(EditAnywhere)
+	bool bMovesYAxis = true;
 };

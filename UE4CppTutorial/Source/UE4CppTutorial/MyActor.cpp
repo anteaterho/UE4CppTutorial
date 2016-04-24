@@ -49,6 +49,7 @@ void AMyActor::Tick( float DeltaTime )
 void AMyActor::TriggerEnter(class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OhtherBodyIndex, bool bFromSweep, const FHitResult& SweepRessult)
 {
 	// When player is hit by the rock, teleport them back to the start
-	OtherActor->SetActorLocation(PlayerStartingLocation);
+	if(OtherActor->IsA(AActor::StaticClass()))
+		OtherActor->SetActorLocation(PlayerStartingLocation);
 
 }

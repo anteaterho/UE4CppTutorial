@@ -31,7 +31,7 @@ public:
 	UPROPERTY(EditAnywhere)
 	float SpeedScale;
 
-	FVector PlayerStartingLocation = FVector(10.0f, 0.0f, 0.0f);
+	FVector PlayerStartingLocation = FVector(1.0f, 0.0f, 0.0f);
 
 	FVector RootSize = FVector(1.5f, 1.5f, 1.5f);
 

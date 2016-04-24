@@ -30,5 +30,10 @@ void AMyActor::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 
+	FVector NewLocation = GetActorLocation();
+	float DeltaHeight = FMath::Sin(RuniningTime + DeltaTime);
+	NewLocation.Z += DeltaHeight;
+	RuniningTime += DeltaTime;
+	SetActorLocation(NewLocation);
 }
 
